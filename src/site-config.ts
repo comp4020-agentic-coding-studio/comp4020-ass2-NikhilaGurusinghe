@@ -12,17 +12,11 @@ export const sessionLabels = {
   plural: "Sessions",
 } as const;
 
-/** Collections that participate in the related-content graph: their entries can
- *  reference each other, and every reference becomes an edge in the API. */
-export const graphCollections = ["sessions", "assessments", "lectures", "people"] as const;
-
-/** Every collection the generated API covers. `policies` is in the API but not
- *  the graph — it is a standalone page that assessments link to, with no
- *  references of its own. Miss it and the emitted contract loses a node. */
-export const courseApiCollections = [...graphCollections, "policies"] as const;
-
-export type GraphCollection = (typeof graphCollections)[number];
-export type ApiCollection = (typeof courseApiCollections)[number];
+// Defined in lib/collections.ts and re-exported here, where you would look for
+// them. They have to stay importable by the Bun scripts that emit and check the
+// API, and this module imports images — which those scripts cannot resolve.
+export type { ApiCollection, GraphCollection } from "@/lib/collections";
+export { courseApiCollections, graphCollections } from "@/lib/collections";
 
 export interface NavLink {
   text: string;

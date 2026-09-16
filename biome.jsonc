@@ -58,6 +58,19 @@
       // clean diff for nothing.
       "includes": ["scripts/pages-base.ts"],
       "linter": { "rules": { "style": { "noNonNullAssertion": "off" } } }
+    },
+    {
+      // Vendored verbatim from astro-course-university v0.1.0 (MIT), because
+      // these two files are the /api contract and a rewrite of them is a
+      // rewrite of it. Their header comments promise upstream fixes stay
+      // diffable against this copy, and that promise is only worth anything if
+      // the formatter and the import sorter leave them alone. Both findings
+      // here are house style, not defects: an untyped `let` that the next line
+      // assigns, and an import order we did not choose.
+      "includes": ["lib/course-graph.ts", "lib/course-content.ts"],
+      "formatter": { "enabled": false },
+      "linter": { "rules": { "suspicious": { "noImplicitAnyLet": "off" } } },
+      "assist": { "actions": { "source": { "organizeImports": "off" } } }
     }
   ]
 }

@@ -18,6 +18,12 @@ export const slopCourseMetaSchema = z
     endDate: z.iso.date(),
     description: z.string().trim().min(80).max(300),
     tags: z.array(z.string().trim().min(2).max(24)).min(1).max(3),
+    // Last on purpose. Zod builds its output object in shape order and the
+    // emitter hands that object straight to JSON.stringify, so moving this line
+    // reorders the `course` block in /api/index.json and breaks the golden
+    // fixture. Optional because the catalogue accepts a course that has not
+    // written its outcomes yet — it publishes the empty array either way.
+    learningOutcomes: z.array(z.string().trim().min(1)).default([]),
   })
   .superRefine((course, ctx) => {
     const codeLevel = Number(course.code.at(4));
