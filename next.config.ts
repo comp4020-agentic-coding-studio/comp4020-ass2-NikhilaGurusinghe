@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { gitOrigin, resolveDeployment } from "./scripts/pages-base";
+import { resolveBasePath } from "./lib/base-path";
 
 // Where this site will be served from. Unchanged in spirit from the Astro
 // config it replaces: GitHub Pages serves a project repo under a sub-path, and
@@ -8,13 +8,10 @@ import { gitOrigin, resolveDeployment } from "./scripts/pages-base";
 // live URL.
 //
 // Resolved at module scope because Next evaluates this file in the build
-// process and again in each export worker, and gitOrigin() shells out to git.
-const { base } = resolveDeployment(process.env, gitOrigin);
-
-// resolveDeployment speaks Astro's dialect, where the domain root is "/".
-// Next rejects a basePath of "/" and wants "" for that case, with no trailing
-// slash on anything else.
-const basePath = base === "/" ? "" : base.replace(/\/+$/, "");
+// process and again in each export worker, and the resolution shells out to
+// git. The build gates import the same function, so the path they check
+// against cannot drift from the path baked into the pages.
+const basePath = resolveBasePath();
 
 const nextConfig: NextConfig = {
   // A fully static site, exported to dist/. `output: "export"` plus a distDir
