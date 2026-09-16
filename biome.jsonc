@@ -1,0 +1,63 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!build",
+      "!next-env.d.ts",
+      // Byte-exact captures of what the Astro build emitted, kept as the golden
+      // contract the Bun emitter has to reproduce. Their formatting is data, not
+      // style: let the formatter near them and the fixture starts asserting our
+      // taste instead of Astro's output.
+      "!spec/fixtures/golden-api"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Template plumbing carried over from the starter unchanged, so that a
+      // future upstream fix still applies cleanly. The assertions it flags are
+      // sound — REMOTE_URL declares both named groups, so a match guarantees
+      // them — and rewriting the file to satisfy a rule we added would trade a
+      // clean diff for nothing.
+      "includes": ["scripts/pages-base.ts"],
+      "linter": { "rules": { "style": { "noNonNullAssertion": "off" } } }
+    }
+  ]
+}

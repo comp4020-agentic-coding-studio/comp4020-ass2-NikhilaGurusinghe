@@ -2,8 +2,11 @@ node_modules/
 dist/
 *.log
 
-# Astro's generated types and build cache
-.astro/
+# Next's build intermediates and generated types. The exported site itself
+# lands in dist/ (see distDir in next.config.ts), ignored above.
+.next/
+next-env.d.ts
+*.tsbuildinfo
 
 # Local-only capture from the last Astro build: compiled brand CSS, rendered
 # HTML and the Slop logo assets, kept so the visual system can be rebuilt

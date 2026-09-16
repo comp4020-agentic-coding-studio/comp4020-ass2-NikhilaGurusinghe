@@ -1,5 +1,4 @@
-import type { CourseMetaInput } from "astro-course-university";
-import { z } from "astro/zod";
+import { z } from "zod";
 
 // The level digits ANU uses: 1000--4000 undergraduate, 6000 and 8000
 // postgraduate. Both the code pattern and the level field derive from this.
@@ -38,10 +37,15 @@ export const slopCourseMetaSchema = z
     }
   });
 
+export type CourseMeta = z.infer<typeof slopCourseMetaSchema>;
+
 // The single source of truth for the course record. The generated homepage,
 // navigation label and /api/index.json all read this object.
 // Replace every placeholder value, but keep the shape: the catalogue ingests
 // this API contract when the course is published.
+//
+// Parsed at module load on purpose: an invalid record is a build-time crash,
+// not a page that renders wrong.
 //
 // The code's last three digits were assigned to this repo when it was
 // provisioned, and no other course in the cohort has them. Change the first
@@ -59,4 +63,4 @@ export const courseMeta = slopCourseMetaSchema.parse({
     "One concise paragraph explaining what this course is, who it is for, " +
     "and why somebody would choose to spend a semester taking it.",
   tags: ["replace me"],
-}) satisfies CourseMetaInput;
+});

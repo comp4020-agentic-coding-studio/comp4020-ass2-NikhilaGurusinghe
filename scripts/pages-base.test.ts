@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { pagesUrl, parseRepoSlug, resolveDeployment } from "./pages-base.ts";
 
 // This protects template plumbing rather than a decision students make, so it
@@ -15,12 +15,16 @@ describe("parseRepoSlug", () => {
     expect(parseRepoSlug(input)).toEqual(expected);
   });
 
-  it.each([undefined, null, "", "   ", "not-a-repo", "https://gitlab.com/a/b.git"])(
-    "returns null for %s",
-    (input) => {
-      expect(parseRepoSlug(input)).toBeNull();
-    },
-  );
+  it.each([
+    undefined,
+    null,
+    "",
+    "   ",
+    "not-a-repo",
+    "https://gitlab.com/a/b.git",
+  ])("returns null for %s", (input) => {
+    expect(parseRepoSlug(input)).toBeNull();
+  });
 });
 
 describe("pagesUrl", () => {
@@ -59,6 +63,9 @@ describe("resolveDeployment", () => {
   });
 
   it("builds at the root when the repo is unknown", () => {
-    expect(resolveDeployment({}, noRemote)).toEqual({ site: undefined, base: "/" });
+    expect(resolveDeployment({}, noRemote)).toEqual({
+      site: undefined,
+      base: "/",
+    });
   });
 });

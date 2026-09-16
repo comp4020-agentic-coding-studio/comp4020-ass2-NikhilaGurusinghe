@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { slopCourseMetaSchema } from "../src/course-config";
 
 const valid = {
@@ -19,10 +19,15 @@ describe("Slop course record", () => {
     expect(slopCourseMetaSchema.safeParse(valid).success).toBe(true);
   });
 
-  it.each(["SLOP0713", "SLOP5713", "SLOP7713", "SLOP9713", "SLOP271", "COMP2713"])(
-    "rejects invalid code %s",
-    (code) => expect(slopCourseMetaSchema.safeParse({ ...valid, code }).success).toBe(false),
-  );
+  it.each([
+    "SLOP0713",
+    "SLOP5713",
+    "SLOP7713",
+    "SLOP9713",
+    "SLOP271",
+    "COMP2713",
+  ])("rejects invalid code %s", (code) =>
+    expect(slopCourseMetaSchema.safeParse({ ...valid, code }).success).toBe(false));
 
   it("takes any session name and a period that crosses the year", () => {
     const record = {
@@ -44,7 +49,10 @@ describe("Slop course record", () => {
     );
     expect(slopCourseMetaSchema.safeParse({ ...valid, tags: [] }).success).toBe(false);
     expect(
-      slopCourseMetaSchema.safeParse({ ...valid, tags: ["one", "two", "three", "four"] }).success,
+      slopCourseMetaSchema.safeParse({
+        ...valid,
+        tags: ["one", "two", "three", "four"],
+      }).success,
     ).toBe(false);
   });
 });

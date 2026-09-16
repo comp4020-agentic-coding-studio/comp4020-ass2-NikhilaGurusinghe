@@ -1,8 +1,8 @@
+import { afterEach, describe, expect, it } from "bun:test";
 import { execFileSync, spawnSync } from "node:child_process";
-import { copyFileSync, mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
 import { expectedReflections } from "./check-evidence.ts";
 
 // The expected reflection names derive from the repo name alone — offline,
@@ -33,6 +33,11 @@ describe("expectedReflections", () => {
 });
 
 const script = resolve("scripts/check-evidence.ts");
+
+// check-evidence.ts carries a node shebang and CI invokes it with node, so the
+// test spawns node too. Under `bun test` process.execPath is the bun binary,
+// which would quietly test a different interpreter than the one being gated on.
+const NODE = process.execPath.endsWith("bun") ? "node" : process.execPath;
 
 // The starter artwork the Assignment 2 gate hashes, repo-relative.
 const STARTER_IMAGES = [
@@ -151,7 +156,7 @@ afterEach(() => {
 
 describe("check:evidence", () => {
   it("passes with the reflection the repo's name expects", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: fixture(),
       env,
       encoding: "utf8",
@@ -161,7 +166,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a repo whose expected reflection is missing", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: fixture(true, "crit-2.md"),
       env,
       encoding: "utf8",
@@ -171,7 +176,7 @@ describe("check:evidence", () => {
   });
 
   it("asks nothing of an assignment repo's reflections/", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: fixture(true, null, "comp4020-ass1-alice"),
       env,
       encoding: "utf8",
@@ -181,7 +186,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a missing CLAUDE.md", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: fixture(false),
       env,
       encoding: "utf8",
@@ -191,7 +196,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a marked Assignment 2 starter fragment", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: assignment2Fixture(true),
       env,
       encoding: "utf8",
@@ -202,7 +207,7 @@ describe("check:evidence", () => {
   });
 
   it("accepts Assignment 2 source after its starter markers are removed", () => {
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd: assignment2Fixture(false),
       env,
       encoding: "utf8",
@@ -218,7 +223,7 @@ describe("check:evidence", () => {
     const cwd = assignment2Fixture(false);
     mkdirSync(join(cwd, dirname(image)), { recursive: true });
     copyFileSync(resolve(image), join(cwd, image));
-    const result = spawnSync(process.execPath, [script], {
+    const result = spawnSync(NODE, [script], {
       cwd,
       env,
       encoding: "utf8",
