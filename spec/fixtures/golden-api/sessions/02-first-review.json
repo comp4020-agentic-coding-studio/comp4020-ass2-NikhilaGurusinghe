@@ -1,0 +1,25 @@
+{
+  "id": "sessions/02-first-review",
+  "type": "sessions",
+  "title": "First review",
+  "description": "The second session, where work made in week 1 meets an audience for the first time",
+  "tags": [],
+  "related": [
+    "assessments/assignment-1",
+    "lectures/week-02"
+  ],
+  "links": [],
+  "spec": [
+    "work from week 1 is running and can be shown in under two minutes",
+    "you can name the one decision you are least sure about"
+  ],
+  "meta": {
+    "week": 2,
+    "date": "2027-03-01",
+    "teachers": [
+      "idris-fenn"
+    ]
+  },
+  "timezone": "Australia/Canberra",
+  "body": "<!-- STARTER_CONTENT: replace this session, then remove this comment. -->\n\nReplace this page. It is here so the sessions listing sorts by week, the detail\nroute renders a second spec, and the related block has an edge into the\nassessment collection.\n\n## Before the session\n\nBring the work from week 1 and the one decision you are least sure about.\n\n## In the session\n\nShort demos, then feedback aimed at the decision rather than the polish. What\nmakes a review worth attending is that the feedback changes what someone does\nnext, so build in the time to act on it.\n\n## Afterwards\n\nIf attendance or participation is worth marks, say so here and link the rule to\nthe [assessment page](/assessments/) rather than restating it."
+}

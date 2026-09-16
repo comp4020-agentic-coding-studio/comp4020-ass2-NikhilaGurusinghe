@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "canonicalUrl": "https://courses.slop.university/SLOP1836/",
+  "course": {
+    "code": "SLOP1836",
+    "title": "Course Title Goes Here",
+    "session": "Semester 1",
+    "year": 2027,
+    "level": 1,
+    "startDate": "2027-02-22",
+    "endDate": "2027-05-28",
+    "description": "One concise paragraph explaining what this course is, who it is for, and why somebody would choose to spend a semester taking it.",
+    "tags": [
+      "replace me"
+    ],
+    "learningOutcomes": []
+  },
+  "timezone": "Australia/Canberra",
+  "nodes": [
+    {
+      "id": "sessions/01-getting-started",
+      "type": "sessions",
+      "title": "Getting started",
+      "description": "The first session of the semester — what to have working before you arrive, and what happens once you do",
+      "tags": [],
+      "related": [
+        "lectures/week-01"
+      ],
+      "spec": [
+        "your development environment runs the course's toolchain",
+        "you can build and preview the site locally",
+        "you have something, however rough, to show the class"
+      ],
+      "meta": {
+        "week": 1,
+        "date": "2027-02-22",
+        "teachers": [
+          "marisol-quaye"
+        ]
+      }
+    },
+    {
+      "id": "sessions/02-first-review",
+      "type": "sessions",
+      "title": "First review",
+      "description": "The second session, where work made in week 1 meets an audience for the first time",
+      "tags": [],
+      "related": [
+        "assessments/assignment-1",
+        "lectures/week-02"
+      ],
+      "spec": [
+        "work from week 1 is running and can be shown in under two minutes",
+        "you can name the one decision you are least sure about"
+      ],
+      "meta": {
+        "week": 2,
+        "date": "2027-03-01",
+        "teachers": [
+          "idris-fenn"
+        ]
+      }
+    },
+    {
+      "id": "assessments/assignment-1",
+      "type": "assessments",
+      "title": "Assignment 1",
+      "description": "The first piece of graded work — a placeholder brief showing the shape every assessment page follows",
+      "tags": [],
+      "related": [
+        "assessments/final-project",
+        "sessions/02-first-review",
+        "lectures/week-02"
+      ],
+      "spec": [
+        "submitted by the deadline, in the format named below",
+        "it does the thing the brief asks for, and a reader can tell that it does",
+        "the work is yours, with any assistance declared"
+      ],
+      "meta": {
+        "week": 6,
+        "due": "2027-04-12T12:00:00+10:00",
+        "weight": 40,
+        "marking": {
+          "mode": "weighted",
+          "criteria": [
+            {
+              "name": "Response to the brief",
+              "weight": 60
+            },
+            {
+              "name": "Quality of execution",
+              "weight": 40
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "assessments/final-project",
+      "type": "assessments",
+      "title": "Final project",
+      "description": "The capstone — a placeholder brief for the larger piece of work the semester builds towards",
+      "tags": [],
+      "related": [
+        "assessments/assignment-1"
+      ],
+      "spec": [
+        "submitted by the deadline, in the format named below",
+        "it stands on its own, without you there to explain it",
+        "it answers the brief rather than restating it"
+      ],
+      "meta": {
+        "week": 12,
+        "due": "2027-05-28T12:00:00+10:00",
+        "weight": 60,
+        "marking": {
+          "mode": "holistic",
+          "description": "The final project is judged as a whole against the brief, with particular attention to whether the result stands alone and whether its scope fits the semester that produced it."
+        }
+      }
+    },
+    {
+      "id": "lectures/week-01",
+      "type": "lectures",
+      "title": "Opening lecture",
+      "description": "The first lecture — what the course is, why it is shaped this way, and what happens in week 1",
+      "tags": [],
+      "related": [
+        "sessions/01-getting-started"
+      ],
+      "meta": {
+        "week": 1,
+        "date": "2027-02-22",
+        "teachers": [
+          "marisol-quaye"
+        ],
+        "slides": "/decks/week-01/"
+      }
+    },
+    {
+      "id": "lectures/week-02",
+      "type": "lectures",
+      "title": "Second lecture",
+      "description": "Week 2 — the first substantive material, and the run-up to the first review",
+      "tags": [],
+      "related": [
+        "sessions/02-first-review",
+        "assessments/assignment-1"
+      ],
+      "meta": {
+        "week": 2,
+        "date": "2027-03-01",
+        "teachers": [
+          "idris-fenn"
+        ]
+      }
+    },
+    {
+      "id": "people/idris-fenn",
+      "type": "people",
+      "title": "Idris Fenn",
+      "description": "A tutor working across the course's first reviews and the practical work that follows them.",
+      "tags": [],
+      "related": [],
+      "meta": {
+        "affiliation": "Slop University School of Invented Disciplines",
+        "role": "tutor",
+        "email": "idris.fenn@slop.university",
+        "contact": "Ask during sessions, or email when a question cannot wait until the next one.",
+        "photo": "./idris-fenn.avif",
+        "photoAlt": "A stylised portrait of a person facing the viewer, flat gold and black shapes on warm cream, in a two-ink risograph print"
+      }
+    },
+    {
+      "id": "people/marisol-quaye",
+      "type": "people",
+      "title": "Marisol Quaye",
+      "description": "The founding convenor, responsible for the course's shape and its weekly teaching programme.",
+      "tags": [],
+      "related": [],
+      "meta": {
+        "affiliation": "Slop University School of Invented Disciplines",
+        "role": "convenor",
+        "email": "marisol.quaye@slop.university",
+        "contact": "Email for course-level questions; use the weekly session for feedback on work.",
+        "photo": "./marisol-quaye.avif",
+        "photoAlt": "A stylised portrait of a person in three-quarter view, flat gold and black shapes on warm cream, in a two-ink risograph print"
+      }
+    },
+    {
+      "id": "policies/index",
+      "type": "policies",
+      "title": "Policies and support",
+      "description": "The course-wide rules for late work, extensions, academic integrity and getting help.",
+      "tags": [],
+      "related": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "sessions/02-first-review",
+      "to": "assessments/assignment-1"
+    },
+    {
+      "from": "assessments/assignment-1",
+      "to": "assessments/final-project"
+    },
+    {
+      "from": "lectures/week-01",
+      "to": "sessions/01-getting-started"
+    },
+    {
+      "from": "lectures/week-02",
+      "to": "sessions/02-first-review"
+    },
+    {
+      "from": "lectures/week-02",
+      "to": "assessments/assignment-1"
+    }
+  ]
+}

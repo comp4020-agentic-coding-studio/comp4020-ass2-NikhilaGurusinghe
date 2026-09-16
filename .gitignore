@@ -5,6 +5,12 @@ dist/
 # Astro's generated types and build cache
 .astro/
 
+# Local-only capture from the last Astro build: compiled brand CSS, rendered
+# HTML and the Slop logo assets, kept so the visual system can be rebuilt
+# faithfully once the Astro packages are uninstalled. Not part of the
+# deliverable; the committed reference is spec/fixtures/golden-api/.
+.astro-reference/
+
 # staging dir for the CI link check
 linkcheck/
 

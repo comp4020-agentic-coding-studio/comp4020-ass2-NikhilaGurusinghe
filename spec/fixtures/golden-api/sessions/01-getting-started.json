@@ -1,0 +1,25 @@
+{
+  "id": "sessions/01-getting-started",
+  "type": "sessions",
+  "title": "Getting started",
+  "description": "The first session of the semester — what to have working before you arrive, and what happens once you do",
+  "tags": [],
+  "related": [
+    "lectures/week-01"
+  ],
+  "links": [],
+  "spec": [
+    "your development environment runs the course's toolchain",
+    "you can build and preview the site locally",
+    "you have something, however rough, to show the class"
+  ],
+  "meta": {
+    "week": 1,
+    "date": "2027-02-22",
+    "teachers": [
+      "marisol-quaye"
+    ]
+  },
+  "timezone": "Australia/Canberra",
+  "body": "<!-- STARTER_CONTENT: replace this session, then remove this comment. -->\n\nReplace this page. A session brief tells a student three things: what to bring,\nwhat will happen, and how to tell afterwards whether it went well.\n\n## Before the session\n\nThe `spec` above is the contract. Write each line so a reader can tell whether\nit has been met without asking you --- that is the difference between a spec and\na wish.\n\n## In the session\n\nSay how the time is actually spent, in the order it happens. If the session runs\nto a repeating shape --- a demo, then feedback, then work time --- name the\nparts and say roughly how long each takes. Students plan against it.\n\n## Afterwards\n\nSay what leaves the session: a mark, a piece of feedback, a decision about the\nnext week's work."
+}

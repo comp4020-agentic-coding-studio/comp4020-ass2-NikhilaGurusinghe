@@ -1,0 +1,27 @@
+{
+  "id": "assessments/final-project",
+  "type": "assessments",
+  "title": "Final project",
+  "description": "The capstone — a placeholder brief for the larger piece of work the semester builds towards",
+  "tags": [],
+  "related": [
+    "assessments/assignment-1"
+  ],
+  "links": [],
+  "spec": [
+    "submitted by the deadline, in the format named below",
+    "it stands on its own, without you there to explain it",
+    "it answers the brief rather than restating it"
+  ],
+  "meta": {
+    "week": 12,
+    "due": "2027-05-28T12:00:00+10:00",
+    "weight": 60,
+    "marking": {
+      "mode": "holistic",
+      "description": "The final project is judged as a whole against the brief, with particular attention to whether the result stands alone and whether its scope fits the semester that produced it."
+    }
+  },
+  "timezone": "Australia/Canberra",
+  "body": "<!-- STARTER_CONTENT: replace this assessment brief, then remove this comment. -->\n\nReplace this brief. The final project is where a course's weights usually\nconcentrate, so it is worth being explicit about how the earlier work feeds it.\n\n## The brief\n\n> One sentence, again as a blockquote.\n\nSay what scope is realistic in the time available. A brief that quietly assumes\ntwice the available hours is the most common way a capstone goes wrong.\n\n## What you submit\n\nThe artefact, and whatever a marker needs to run or read it.\n\nThis one demonstrates the alternative marking mode: a holistic explanation\nrather than weighted criteria. The site renders either mode from frontmatter."
+}

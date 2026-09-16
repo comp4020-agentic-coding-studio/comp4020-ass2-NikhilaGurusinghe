@@ -1,0 +1,12 @@
+{
+  "id": "policies/index",
+  "type": "policies",
+  "title": "Policies and support",
+  "description": "The course-wide rules for late work, extensions, academic integrity and getting help.",
+  "tags": [],
+  "related": [],
+  "links": [],
+  "meta": {},
+  "timezone": "Australia/Canberra",
+  "body": "# Policies and support\n\n{/* STARTER_CONTENT: replace this policy page, then remove this comment. */}\n\nReplace this page. Course-wide rules live here so an assessment brief can link\nto one place; a course with no rules worth a page can delete it, along with its\nentry in `src/site-config.ts`."
+}
