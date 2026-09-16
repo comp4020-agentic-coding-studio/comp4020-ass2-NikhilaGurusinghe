@@ -14,9 +14,6 @@ next-env.d.ts
 # deliverable; the committed reference is spec/fixtures/golden-api/.
 .astro-reference/
 
-# staging dir for the CI link check
-linkcheck/
-
 # editor and OS junk
 .DS_Store
 ._*
