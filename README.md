@@ -69,7 +69,7 @@ for the details.
 ```sh
 mise install        # supported path: install the template's Bun and Node
 bun install
-bun run dev             # local dev server, at http://localhost:3000/<repo>/
+bun run dev             # local dev server, at http://localhost:3000
 bun run check           # types, lint, build integrity and the course spec
 bun run check:evidence  # final submission gate
 ```
@@ -82,8 +82,11 @@ repo owns** --- the package manager, every script in `scripts/`, every test.
 Node is there because `next build` segfaults under `bunx --bun`, and because the
 Pagefind CLI is a Node package. If you are adding a script, it goes on Bun.
 
-The dev server serves the site under its base path (see below), so the address
-is `http://localhost:3000/<repo>/`; the bare `http://localhost:3000` is a 404.
+The dev server serves the site at the root, `http://localhost:3000`. The
+deployed site is served under a base path (see below), and `bun run preview`
+reproduces that exactly --- same address, same prefix, same 404 page --- so the
+last look before a deploy is the honest one.
+
 Site search is the one thing `next dev` cannot serve --- Pagefind indexes the
 exported HTML, which doesn't exist yet --- so use `bun run build && bun run
 preview` to exercise it.
@@ -208,10 +211,25 @@ browser, at the two marking viewports.
 
 ## The base path
 
-The site deploys to `https://<owner>.github.io/<repo>/`, so every internal URL
-carries a `/<repo>/` prefix. `next.config.ts` derives it at config time from
-`GITHUB_REPOSITORY` (in CI) or the `origin` remote (locally), via
-`lib/base-path.ts` and `scripts/pages-base.ts`. Its tests in
+The site deploys to `https://<owner>.github.io/<repo>/`, so in a production
+build every internal URL carries a `/<repo>/` prefix. That prefix is GitHub
+Pages routing the request, not a choice this repo makes; Next has to know it at
+build time or every asset URL points at the domain root.
+
+The dev server has no such prefix imposed on it, so it doesn't get one:
+
+| | Address | Base path |
+|---|---|---|
+| `bun run dev` | `http://localhost:3000` | none |
+| `bun run preview` | `http://localhost:3000/<repo>/` | `/<repo>/` |
+| Deployed | `https://<owner>.github.io/<repo>/` | `/<repo>/` |
+
+`next.config.ts` is a phase function: it returns an empty base path for
+`PHASE_DEVELOPMENT_SERVER` and the real one otherwise. The condition is that way
+round on purpose --- an unexpected phase must still get the real prefix, because
+an unprefixed production build looks fine locally and ships a site with no CSS.
+The value itself comes from `GITHUB_REPOSITORY` (in CI) or the `origin` remote
+(locally), via `lib/base-path.ts` and `scripts/pages-base.ts`. Its tests in
 `scripts/pages-base.test.ts` are template-maintainer tests, not part of your
 course spec.
 
@@ -220,11 +238,16 @@ browser, so it only lands where the framework is looking:
 
 - `<Link href="/sessions/">` and `next/image` with a **static import** get it.
 - A bare `<a href="/sessions/">`, or an `<img src="/foo.png">` pointing at
-  `public/`, does **not**. It works on `localhost` and 404s on the live site.
+  `public/`, does **not**. Since dev runs without a prefix, such a link now
+  works there too and still 404s on the live site --- it was always broken, it
+  is just no longer visible while you are writing it.
 
 `scripts/check-links.ts` reads `href`, `src`, `action`, `poster` and `srcset`
 across every exported page and fails the build on any internal URL missing the
-prefix, so the compiler won't catch this but the build will.
+prefix, so the compiler won't catch this but the build will. `bun run preview`
+is the other half of that safety net: it mounts `dist/` under the same base path
+the build used, so a broken asset shows up as a broken page rather than as a 404
+you only find in production.
 
 ## The link-preview card
 
@@ -248,6 +271,10 @@ the deploy.
 
 `bun run build` is itself a chain of checks, in this order:
 
+0. `rm -rf dist` --- `next build` writes over `dist/` but does not empty it, so
+   without this a page you renamed or deleted stays behind, passes every gate
+   below and ships. It also clears the `dist/dev/` logs `bun run dev` leaves
+   there. Cheap, and it makes a local build byte-comparable with CI's.
 1. `scripts/check-refs.ts` --- fails on a dangling content ref, before Next runs
    at all, so a bad ref is a one-line error rather than a build-time stack.
 2. `next build` --- the static export into `dist/`.
