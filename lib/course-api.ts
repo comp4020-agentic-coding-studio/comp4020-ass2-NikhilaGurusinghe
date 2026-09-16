@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { courseMeta } from "@/src/course-config";
+import { SITE_TIMEZONE } from "@/src/lib/dates";
 import { courseApiCollections } from "./collections";
 import type { CourseCollection } from "./course-content";
 import { readCourseNodes, writeCourseApi } from "./course-content";
@@ -23,8 +24,11 @@ const SRC_DIR = resolve(process.cwd(), "src");
  * The zone the site's bare frontmatter dates are read in. Emitted verbatim;
  * dates are never rewritten to a UTC offset, which would bake in one side of a
  * DST transition.
+ *
+ * Defined with the formatter that reads it, so the zone the API tells consumers
+ * to use and the zone the pages actually print cannot drift apart.
  */
-export const API_TIMEZONE = "Australia/Canberra";
+export const API_TIMEZONE = SITE_TIMEZONE;
 
 /**
  * Where the catalogue expects to find this course. Deliberately not the

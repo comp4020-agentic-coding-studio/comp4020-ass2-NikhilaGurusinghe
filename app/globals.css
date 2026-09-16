@@ -23,6 +23,11 @@
   --at-secondary: #8a5c13;
   --at-tertiary: #6b6154;
 
+  /* The two ends of the range, fixed rather than derived: the footer band is
+   * black in both themes and the hero title is white over its own gradient. */
+  --at-black: #000;
+  --at-white: #fff;
+
   /* The shield crest sits at the far left of the lockup, its centre 5.9% of
    * the way across. Offset by that so the content rule bisects the crest. */
   --at-logo-offset-x: -5.9%;
@@ -126,6 +131,12 @@
 
   --at-content-width: 48rem;
   --at-gutter: var(--at-spacing-md);
+  /* The strip between the gutter and the text column, where the vertical rule
+   * and the logo sit. Collapsed to nothing on a phone. */
+  --at-content-inset: 0px;
+  /* Zero here, and kept as a token because the page-frame grid subtracts it on
+   * both sides: a layout that grows a sidebar sets it and nothing else moves. */
+  --at-sidebar-inset: 0px;
   --at-border-radius: 0.375rem;
   --at-nav-height: 6.5rem;
 
@@ -134,11 +145,13 @@
   --at-shadow-lg: light-dark(0 8px 32px #0003, 0 12px 40px #000000b3);
 }
 
-/* The theme widened its gutter past the phone breakpoint. 390px wide is one of
- * the two marked viewports, so this boundary matters. */
+/* The theme widened its gutter past the phone breakpoint and only then made
+ * room for the inset — at 390px there is no room for a rule beside the text.
+ * 390px wide is one of the two marked viewports, so this boundary matters. */
 @media (min-width: 40rem) {
   :root {
     --at-gutter: var(--at-spacing-lg);
+    --at-content-inset: var(--at-spacing-xl);
   }
 }
 
@@ -176,17 +189,383 @@
   --radius-token: var(--at-border-radius);
 }
 
-body {
-  background: var(--at-bg);
-  color: var(--at-text);
-  font-family: var(--at-font-body);
-  font-size: var(--at-font-size-base);
-  line-height: var(--at-line-height);
+/* Not `inline`: the keyframes have to be emitted, and Tailwind only emits the
+ * ones an `--animate-*` token actually names. The hero title and its rule come
+ * up together, the rule a beat later, which is the theme's one piece of motion
+ * — and `prefers-reduced-motion` flattens both in the base layer. */
+@theme {
+  --animate-hero-fade-up: hero-fade-up 0.6s both;
+  --animate-hero-fade-up-delayed: hero-fade-up 0.6s 0.2s both;
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
 }
 
-/* A visible focus ring is a rubric item, and Tailwind's preflight removes the
- * UA default without supplying one. */
-:focus-visible {
-  outline: 2px solid var(--at-primary);
-  outline-offset: 2px;
+/* ---------------------------------------------------------------------------
+ * The page frame.
+ *
+ * Everything below is in `@layer base`, so a Tailwind utility still wins over
+ * it — which is the whole point of the split. Two kinds of rule live here and
+ * nothing else does:
+ *
+ * 1. The grid. The site is one grid declared on <body> with named lines, and
+ *    the nav, hero, main and footer each take `grid-template-columns: subgrid`
+ *    so their own children land on the same content column. A rule bisects the
+ *    page at the content edge. None of that is expressible in utilities without
+ *    arbitrary values that spell the same CSS out illegibly, and utilities
+ *    cannot name a grid line at all.
+ *
+ * 2. Element defaults. Tailwind's preflight strips headings, lists, tables and
+ *    quotes back to nothing, and the content bodies are rendered markdown
+ *    injected as HTML with no classes on it. So the defaults the theme set have
+ *    to be restored as element rules or every course page renders unstyled.
+ *
+ * Components are Tailwind. If a rule here is not the grid or a bare element
+ * default, it is in the wrong file.
+ * ------------------------------------------------------------------------- */
+
+@layer base {
+  body {
+    display: grid;
+    /* The named columns every section subgrids onto. `content` is the text
+     * measure, clamped by --at-content-width and by what the gutters leave;
+     * `full` is edge to edge, for the nav, hero and footer bands. */
+    grid-template-columns:
+      [full-start] minmax(calc(var(--at-gutter) + var(--at-sidebar-inset)), 1fr)
+      [inset-start] var(--at-content-inset)
+      [content-start] min(
+        var(--at-content-width),
+        100% -
+        2 *
+        var(--at-gutter) -
+        var(--at-content-inset) -
+        2 *
+        var(--at-sidebar-inset)
+      )
+      [content-end] minmax(calc(var(--at-gutter) + var(--at-sidebar-inset)), 1fr)
+      [full-end];
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100dvh;
+    margin: 0;
+    position: relative;
+    background: var(--at-bg);
+    color: var(--at-text);
+    font-family: var(--at-font-body);
+    font-size: var(--at-font-size-base);
+    line-height: var(--at-line-height);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  body > * {
+    grid-column: content;
+  }
+
+  /* The vertical rule. Drawn on the body rather than on each section so it runs
+   * the full height of the page, under the nav and through the footer. */
+  body::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: max(
+      calc(var(--at-gutter) + var(--at-sidebar-inset)),
+      calc((100% - var(--at-content-inset) - var(--at-content-width)) / 2)
+    );
+    width: 1px;
+    background: var(--at-primary);
+    pointer-events: none;
+  }
+
+  /* No inset below 640px, so the rule would sit on the text. */
+  @media (max-width: 39.9375rem) {
+    body::after {
+      display: none;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* So an in-page anchor does not land under the sticky nav. */
+    scroll-padding-top: calc(var(--at-nav-height) + var(--at-spacing-md));
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+  }
+
+  ::selection {
+    background: var(--at-primary);
+    color: var(--at-on-primary);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--at-heading);
+    line-height: var(--at-line-height-heading);
+    text-wrap: balance;
+    margin-block: 1.5em 0.5em;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: var(--at-font-size-h1);
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  h2 {
+    font-size: var(--at-font-size-h2);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: var(--at-font-size-h3);
+  }
+  h4 {
+    font-size: var(--at-font-size-h4);
+  }
+  h5 {
+    font-size: var(--at-font-size-h5);
+  }
+  h6 {
+    font-size: var(--at-font-size-h6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    text-wrap: pretty;
+    margin-block: 0 1em;
+  }
+
+  a {
+    color: var(--at-link);
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    transition: color 0.15s;
+  }
+  a:hover {
+    color: var(--at-link-hover);
+  }
+
+  ul,
+  ol,
+  dl,
+  pre,
+  blockquote,
+  figure {
+    margin-block: 0 1em;
+  }
+
+  /* Rendered markdown has no classes, so its lists need their markers back. */
+  :where(ul, ol) {
+    padding-inline-start: var(--at-spacing-lg);
+  }
+  :where(ul) {
+    list-style: disc;
+  }
+  :where(ol) {
+    list-style: decimal;
+  }
+
+  code {
+    font-family: var(--at-font-mono);
+    font-size: var(--at-font-size-sm);
+    background: var(--at-code-bg);
+    border-radius: var(--at-border-radius);
+    padding: 0.125em 0.375em;
+  }
+
+  pre {
+    padding: var(--at-spacing-md) var(--at-spacing-lg);
+    border-radius: var(--at-border-radius);
+    background: var(--at-bg-elevated);
+    border: 1px solid var(--at-divider);
+    overflow-x: auto;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  blockquote {
+    color: var(--at-text-secondary);
+    text-wrap: pretty;
+    margin-inline: 0;
+    font-weight: 300;
+  }
+  /* The theme marked a quote with a rule above it rather than beside it. */
+  blockquote::before {
+    content: "";
+    display: block;
+    border-block-start: 1px solid var(--at-primary);
+    inline-size: 3rem;
+    padding-block-end: var(--at-spacing-sm);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-block: 1em;
+  }
+  thead {
+    background: var(--at-table-header-bg);
+    color: var(--at-table-header-text);
+  }
+  th,
+  td {
+    padding: var(--at-spacing-sm) var(--at-spacing-md);
+    text-align: start;
+  }
+  tbody tr:nth-child(even) {
+    background: var(--at-table-stripe);
+  }
+
+  hr {
+    border: none;
+    border-block-start: 1px solid var(--at-divider);
+    margin-block: var(--at-spacing-xl);
+  }
+
+  dd {
+    margin-inline-start: 0;
+  }
+
+  img,
+  picture,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* A visible focus ring is a rubric item, and Tailwind's preflight removes the
+   * UA default without supplying one. */
+  :focus-visible {
+    outline: 2px solid var(--at-primary);
+    outline-offset: 2px;
+  }
+
+  /* The anchor rehype-autolink-headings appends. aria-hidden, so it is decoration
+   * for a sighted mouse user and invisible to everything else. */
+  .heading-anchor {
+    color: var(--at-text-muted);
+    opacity: 0;
+    margin-inline-start: 0.5ch;
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  :is(h1, h2, h3, h4, h5, h6):hover > .heading-anchor {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    .heading-anchor {
+      opacity: 0.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    /* The one place `!important` is the correct tool rather than a shortcut.
+     * A reader who has asked their operating system to stop animating things
+     * is stating a health constraint, and this rule has to win against every
+     * animation on the site however it was written — a utility, a component
+     * class, an inline style on a third-party embed. Drop the flags and any
+     * later `animate-*` utility silently outranks the accommodation. */
+    /* biome-ignore-start lint/complexity/noImportantStyles: see above */
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+    /* biome-ignore-end lint/complexity/noImportantStyles: see above */
+  }
+}
+
+/* The two ways a section attaches to the page grid. Class names rather than
+ * arbitrary utilities because `grid-column: full` names a grid line, and a line
+ * name is the one thing Tailwind's arbitrary-value syntax cannot carry.
+ *
+ * `.band` spans the viewport and re-exposes the same columns to its children,
+ * so a nav bar can be full-bleed while its contents still align to the text.
+ * `.inset-band` starts at the inset instead, which is what lets an image in the
+ * main column bleed left to the rule without leaving the gutter. */
+@layer components {
+  .band {
+    display: grid;
+    grid-column: full;
+    grid-template-columns: subgrid;
+  }
+
+  .inset-band {
+    display: grid;
+    grid-column: inset-start / content-end;
+    grid-template-columns: subgrid;
+  }
+
+  /* A band's children sit in the text column — unless the child is itself a
+   * band, which is how the hero puts a full-bleed gradient over a full-bleed
+   * image and still lands its title on the same left edge as every paragraph
+   * on the site. Written as `:not()` rather than left to a utility override
+   * because `.band > *` outspecifies a single class and the override would
+   * have to be an arbitrary property, which reads like a workaround. */
+  .band > *:not(.band, .inset-band),
+  .inset-band > *:not(.band, .inset-band) {
+    grid-column: content;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Theme selection.
+ *
+ * Colours are `light-dark()` over an inherited `color-scheme`, so the toggle
+ * only has to set one property on <html> and every token follows. The logo is
+ * the exception: swapping between two files needs a selector, and there isn't
+ * one for "the used colour scheme". So the toggle stamps `data-theme` as well,
+ * and these three rules cover the three states — system, forced light, forced
+ * dark — in both directions.
+ * ------------------------------------------------------------------------- */
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Default: show the dark-ink lockup, hide the light-ink one. */
+.logo-dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .logo-dark {
+    display: block;
+  }
+}
+
+:root[data-theme="dark"] .logo-light {
+  display: none;
+}
+:root[data-theme="dark"] .logo-dark {
+  display: block;
+}
+:root[data-theme="light"] .logo-light {
+  display: block;
+}
+:root[data-theme="light"] .logo-dark {
+  display: none;
 }

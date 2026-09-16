@@ -1,7 +1,7 @@
 # Process overview
 
 <!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
+     in it with your own overview, and delete this comment — `bun run
      check:evidence` will remind you if it's still here. -->
 
 Written by you, for a reader: how you got from the brief to the harness and
@@ -44,7 +44,7 @@ towards the word count and don't replace the citation.
 
 ## Before you ship
 
-`pnpm check:evidence` verifies that this comment is gone, that your citations
+`bun run check:evidence` verifies that this comment is gone, that your citations
 resolve to real commits, that a crit week's reflection entry is in
 `reflections/`, and that your `CLAUDE.md` is there. It checks that your account
 is traceable, not that it is good: that is the marker's call.

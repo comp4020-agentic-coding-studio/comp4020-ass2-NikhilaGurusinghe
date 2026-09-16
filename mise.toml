@@ -1,6 +1,7 @@
 [tools]
-# Node stays alongside Bun: scripts/check-evidence.ts runs under Node here and
-# in CI (its shebang says so, and its test spawns `node` explicitly), and the
-# Pagefind binary is a Node package.
+# Node stays alongside Bun, but only as the framework's runtime: `next build`
+# segfaults under `bunx --bun`, so Next runs on Node, and the Pagefind CLI is a
+# Node package. Everything this repo owns — scripts/, spec/, the test runner,
+# the package manager — is Bun. If you are adding a script, it goes on Bun.
 node = "24"
 bun = "1.3.14"

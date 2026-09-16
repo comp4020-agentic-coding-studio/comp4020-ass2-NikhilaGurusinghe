@@ -230,6 +230,23 @@ async function load(): Promise<CourseContent> {
   };
 }
 
+/**
+ * Resolve an entry's `relatedIds` to the entries they name.
+ *
+ * Silently drops an id with no entry, which is safe only because
+ * scripts/check-refs.ts has already failed the build on a dangling ref — the
+ * gate is what makes this the right shape rather than a swallowed error.
+ */
+export function resolveRelated(
+  content: CourseContent,
+  entry: Entry<Record<string, unknown>> | { relatedIds: string[] },
+): Entry<Record<string, unknown>>[] {
+  return entry.relatedIds.flatMap((id) => {
+    const target = content.byId.get(id);
+    return target ? [target] : [];
+  });
+}
+
 /** Resolve a `teachers:` list to the people entries it names. */
 export function resolveTeachers(
   content: CourseContent,

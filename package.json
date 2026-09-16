@@ -11,7 +11,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "check": "bun run typecheck && bun run lint && bun run test",
-    "check:evidence": "node scripts/check-evidence.ts",
+    "check:evidence": "bun scripts/check-evidence.ts",
     "check:links": "bun scripts/check-links.ts",
     "check:a11y": "bun scripts/check-a11y.ts",
     "test": "bun run build && bun test spec",

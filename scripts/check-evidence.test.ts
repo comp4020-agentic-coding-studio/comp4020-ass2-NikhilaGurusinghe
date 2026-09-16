@@ -34,10 +34,11 @@ describe("expectedReflections", () => {
 
 const script = resolve("scripts/check-evidence.ts");
 
-// check-evidence.ts carries a node shebang and CI invokes it with node, so the
-// test spawns node too. Under `bun test` process.execPath is the bun binary,
-// which would quietly test a different interpreter than the one being gated on.
-const NODE = process.execPath.endsWith("bun") ? "node" : process.execPath;
+// The gate is `bun scripts/check-evidence.ts`, so the test spawns the same
+// interpreter it is being run under rather than naming one. Hard-coding a
+// binary here is how a test quietly starts proving something about a runtime
+// nothing actually uses.
+const RUNTIME = process.execPath;
 
 // The starter artwork the Assignment 2 gate hashes, repo-relative.
 const STARTER_IMAGES = [
@@ -156,7 +157,7 @@ afterEach(() => {
 
 describe("check:evidence", () => {
   it("passes with the reflection the repo's name expects", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: fixture(),
       env,
       encoding: "utf8",
@@ -166,7 +167,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a repo whose expected reflection is missing", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: fixture(true, "crit-2.md"),
       env,
       encoding: "utf8",
@@ -176,7 +177,7 @@ describe("check:evidence", () => {
   });
 
   it("asks nothing of an assignment repo's reflections/", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: fixture(true, null, "comp4020-ass1-alice"),
       env,
       encoding: "utf8",
@@ -186,7 +187,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a missing CLAUDE.md", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: fixture(false),
       env,
       encoding: "utf8",
@@ -196,7 +197,7 @@ describe("check:evidence", () => {
   });
 
   it("rejects a marked Assignment 2 starter fragment", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: assignment2Fixture(true),
       env,
       encoding: "utf8",
@@ -207,7 +208,7 @@ describe("check:evidence", () => {
   });
 
   it("accepts Assignment 2 source after its starter markers are removed", () => {
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd: assignment2Fixture(false),
       env,
       encoding: "utf8",
@@ -223,7 +224,7 @@ describe("check:evidence", () => {
     const cwd = assignment2Fixture(false);
     mkdirSync(join(cwd, dirname(image)), { recursive: true });
     copyFileSync(resolve(image), join(cwd, image));
-    const result = spawnSync(NODE, [script], {
+    const result = spawnSync(RUNTIME, [script], {
       cwd,
       env,
       encoding: "utf8",

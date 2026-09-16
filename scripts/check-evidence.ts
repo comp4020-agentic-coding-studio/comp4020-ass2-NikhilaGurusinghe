@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // Checks the process evidence every submission carries: PROCESS.md with its
 // template boilerplate gone, every cited commit hash resolving to a real
 // commit in this repo (a citation is a markdown link whose text is an

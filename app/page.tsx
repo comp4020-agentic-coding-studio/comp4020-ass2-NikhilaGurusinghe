@@ -1,31 +1,59 @@
-import Image from "next/image";
+import { Card, CardGrid } from "@/components/Card";
+import { PageLayout } from "@/components/PageLayout";
 import heroImage from "@/src/assets/images/hero-home.avif";
+import { courseMeta } from "@/src/course-config";
+import { sessionLabels } from "@/src/site-config";
 
-// Skeleton home page. Its only job right now is to prove the deployment path:
-// a static-imported image and a framework chunk both have to come back with the
-// /<repo> prefix, or the live site is broken in a way nothing local shows.
-//
-// The hero uses `fill` inside an aspect-ratio box rather than letting next/image
-// read the file's intrinsic size. Two reasons, and either one alone is enough:
-// Turbopack can't decode AVIF metadata and silently emits width=100 height=100
-// (the webpack builder reads the same file as 2560x1086), and check-evidence.ts
-// *requires* every starter image to be replaced before submission, so any
-// hardcoded dimension pair is wrong the moment the course is actually written.
-// With `fill` the geometry comes from CSS and neither problem can bite.
+// STARTER_CONTENT: replace the hero artwork and its alt text below, then
+// remove this comment.
+const hero = {
+  src: heroImage,
+  alt: "A lecture theatre reduced to flat gold and black shapes, rows of seats sweeping past the frame, in a two-ink risograph print",
+};
+
 export default function Home() {
   return (
-    <main>
-      <h1>Slop University</h1>
-      <div className="relative aspect-[21/9] w-full overflow-hidden">
-        <Image
-          src={heroImage}
-          alt="A lecture theatre reduced to flat gold and black shapes, rows of seats sweeping past the frame, in a two-ink risograph print"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-      </div>
-    </main>
+    <PageLayout
+      title={`${courseMeta.code}: ${courseMeta.title}`}
+      description={courseMeta.description}
+      hero={hero}
+    >
+      <ul aria-label="Course tags" className="mt-0 mb-8 flex list-none flex-wrap gap-2 p-0">
+        {courseMeta.tags.map((tag) => (
+          <li
+            key={tag}
+            className="rounded-full bg-bg-alt px-[0.65rem] py-1 text-[0.9rem] text-text-secondary"
+          >
+            {tag}
+          </li>
+        ))}
+      </ul>
+
+      {/* STARTER_CONTENT: replace the authored page below, then remove this comment. */}
+      <h2>What you will do</h2>
+      <p>
+        Say what a student spends their time on — the making, reading, arguing or measuring that
+        fills the weeks. Name the artefact they walk out with.
+      </p>
+
+      <h2>Who it is for</h2>
+      <p>
+        Say who this is aimed at and what they need to already know. Be specific enough that someone
+        can rule themselves in or out without emailing you.
+      </p>
+
+      <h2>Where to go next</h2>
+      <CardGrid columns={2}>
+        <Card title={sessionLabels.plural} href="/sessions/">
+          <p>The weekly schedule and what happens in each teaching session.</p>
+        </Card>
+        <Card title="Assessment" href="/assessments/">
+          <p>What is marked, what it is worth, and when it is due.</p>
+        </Card>
+        <Card title="People" href="/people/">
+          <p>Who teaches the course and how to reach them.</p>
+        </Card>
+      </CardGrid>
+    </PageLayout>
   );
 }
