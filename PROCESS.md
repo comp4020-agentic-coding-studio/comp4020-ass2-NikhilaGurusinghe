@@ -16,9 +16,13 @@ cover every deliverable.
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+What I built is a satire, but also a fictitious course (I don't think it would be a real course that could run in semester 2 of 2027). The course is about a fictitious bionic organism that you implant into yourself, which grows like an organ inside you and augments your psychometric capabilities. This organism called a CCS alters your brain chemistry and your brain activity to take in instructions from your thoughts and then control your body and mind to output a suitable response to that instruction. For example, you might think about painting a painting, and then your CCS will control your body and mind and do the painting for you, letting someone who has never painted before paint at a level far beyond their measure. Hence, the crux of the course is about how to best do this process to ensure optimal output and ensure that there isn't too much "noise on the wire" (i.e. too many thoughts floating around in ones head) when giving instructions to their CCS as it requires careful and concise prompting with ones thoughts in order to attain the best outputs. As a sort of toy example throughout the semester, these enhanced thinking methods are tested by having the students create various artefacts from the arts (e.g. literary, auditory, and visual artworks).
+
 
 ## How I got here
+
+* Syncronising dates and people
+* shimmering text using eye tracking - difficult to do in browser environment also not accessible or portable -> what if someone doesn't have a gpu
 
 The account of the process: how the work actually went, and how you knew the
 result was right. Tell it in whatever order makes it clear. A weekly prototype
