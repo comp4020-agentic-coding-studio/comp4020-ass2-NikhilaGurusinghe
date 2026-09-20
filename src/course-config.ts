@@ -53,28 +53,9 @@ export const courseMeta = slopCourseMetaSchema.parse({
   session: "Semester 2",
   year: 2027,
   level: 1,
-  // ANU 2027 academic calendar: Semester 2 begins 26 July and teaching ends
-  // 29 October (a 2-week break from 6 September sits in the middle). The
-  // record runs to the close of the examination period on 20 November, so
-  // assessment due dates after the last teaching day still fall inside it.
   startDate: "2027-07-26",
   endDate: "2027-11-20",
   description:
-    "CCS-based augmentations -- cybernetic organisms that alter your brain’s " +
-    "activity and chemistry -- are a powerful new tool allowing you to think " +
-    "faster and smarter. Moving beyond its obvious uses in solving difficult " +
-    "problems in academia, this course will teach you the skills you need to " +
-    "harness your new second inner monologue in the most optimal way " +
-    "possible. Although this is a skill transferrable to any domain, we will " +
-    "do so chiefly for the creation of art: visual, literary, and auditory. " +
-    "In the weekly lectures you’ll learn fundamental concepts and practical " +
-    "skills for harnessing your cybernetic organ including how best to " +
-    "communicate with them. Then in the weekly workshops, you’ll give a brief " +
-    "presentation on the art that you’ve created and receive constructive " +
-    "criticism from your peers and tutor. However, the goal is to evaluate " +
-    "your interactions with the CCS rather than the artwork itself -- so no " +
-    "prior art experience is required. Hence, by the end of the course you’ll " +
-    "have created multiple artworks, but you’ll have gained a significantly " +
-    "better understanding of using your organ toward any mean.",
+    "This course is about learning to rewire your brain so that you can communicate with a CCS in the most optimal way possible and achieve better outputs from it.",
   tags: ["cybernetics", "art practice", "CCS communication"],
 }) satisfies CourseMetaInput;

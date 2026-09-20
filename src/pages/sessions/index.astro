@@ -2,17 +2,36 @@
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
 import SessionsGrid from "../../components/SessionsGrid.astro";
 import { sessionLabels, siteConfig } from "../../site-config";
+
+// The internal collection and URL stay `sessions`; `sessionLabels` in
+// `src/site-config.ts` carries the language students actually read.
+const one = sessionLabels.singular.toLowerCase();
+const many = sessionLabels.plural.toLowerCase();
 ---
 
 <ContentLayout
   title={sessionLabels.plural}
-  description={`The twelve-week teaching schedule: what happens in each ${sessionLabels.singular.toLowerCase()}, what to prepare, and what leaves the room.`}
+  description={`Here you will find the twelve weekly labs of SLOP1836, focusing on how you can best commune with your new second inner monologue and get them to create artwork with the help of the one thing they lack — your corporeality.`}
   {...siteConfig}
 >
   <p>
-    The internal collection and URL stay <code>sessions</code>. Set the visible
-    singular and plural names once in <code>src/site-config.ts</code> and use
-    the language your course deserves everywhere readers see it.
+    Each week we'll look at applying theory from the lectures. It's also a great
+    place to get feedback from your peers, their CCS's, and the tutors.
   </p>
+  <p>
+    Remember participation contributes to your final grade, but only 10 of your
+    12 participate-able {many} will count towards your final grade. In other
+    words, it's okay to miss a couple (less than or equal to two) {many}.
+    However, please email the relevant tutor if you intend on attending any {one}
+    other than the one you are enrolled into in SLOP Timetabling.
+  </p>
+
+  <h2>Time and location</h2>
+  <p>
+    For the schedule and locations, please see SLOP Timetabling. You can also
+    change your enrolled {one} there.
+  </p>
+
+  <h2>Content</h2>
   <SessionsGrid />
 </ContentLayout>
