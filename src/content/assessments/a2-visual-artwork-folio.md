@@ -3,7 +3,7 @@ title: "A2: visual artwork folio"
 description:
   A folio of paintings covering set topics and techniques, with room for up to
   two self-directed works
-week: 11
+week: 8
 due: 2027-09-30T23:59:00+10:00
 weight: 25
 draft: true

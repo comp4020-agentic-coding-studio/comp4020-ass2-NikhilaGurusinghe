@@ -4,7 +4,7 @@ description:
   A portfolio of drafted and revised poetry or prose alongside a screenplay or
   playscript in both draft and revised form, with a summary of the changes and
   the rationale behind them
-week: 7
+week: 6
 due: 2027-08-31T23:59:00+10:00
 weight: 25
 draft: true
