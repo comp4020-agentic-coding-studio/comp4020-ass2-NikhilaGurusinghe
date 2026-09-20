@@ -1,0 +1,63 @@
+---
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className } = Astro.props;
+
+const noise = (index: number, salt: number): number => {
+  const x = Math.sin((index + 1) * salt) * 10_000;
+  return x - Math.floor(x);
+};
+
+const glyphs = [...text].map((char, index) => ({
+  char,
+  // shiver speed
+  duration: (0.035 + noise(index, 12.9898) * 0.045).toFixed(3),
+  delay: (noise(index, 78.233) * 0.3).toFixed(3),
+  amplitude: (0.03 + noise(index, 43.758) * 0.06).toFixed(3),
+}));
+---
+
+<p class:list={["shiver", className]}>
+  {
+    glyphs.map(({ char, duration, delay, amplitude }) => (
+      <span
+        class="shiver__glyph"
+        style={`--shiver-duration:${duration}s;--shiver-delay:${delay}s;--shiver-amplitude:${amplitude}em`}
+      >
+        {char}
+      </span>
+    ))
+  }
+</p>
+
+<style>
+  .shiver {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .shiver__glyph {
+    display: inline-block;
+    animation: shiver-slide var(--shiver-duration) linear var(--shiver-delay)
+      infinite alternate;
+  }
+
+  @keyframes shiver-slide {
+    from {
+      transform: translateX(calc(var(--shiver-amplitude) * -1));
+    }
+    to {
+      transform: translateX(var(--shiver-amplitude));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shiver__glyph {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>
