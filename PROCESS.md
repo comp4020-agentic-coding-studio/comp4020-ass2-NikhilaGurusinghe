@@ -1,18 +1,7 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
 
-Written by you, for a reader: how you got from the brief to the harness and
-agentic workflow behind this submission. Markers read this file and follow its
-citations; they don't trawl the repo for evidence you didn't point at.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and its
-[word counts](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#word-counts)
-cover every deliverable.
+I did not use a LLM to generate any content -- I wrote everything myself. I did use an agent to insert the content into astro, however, but only for this menial task. As a result of this I did not rewrite any harness as I did not need to use the agent in this way. This is expressely allowed per the course (see week 1 slides).
 
 ## What I built
 
@@ -21,6 +10,11 @@ What I built is a satire, but also a fictitious course (I don't think it would b
 
 ## How I got here
 
-* Syncronising dates and people
-* shimmering text using eye tracking - difficult to do in browser environment also not accessible or portable -> what if someone doesn't have a gpu
+This assignment is clearly more about curating content and this is how the tutors have described this so this is what I focused on more. Initially I wanted to redesign the SLOP U template, but again this would not have made sense as this assignment is more content focused. This also meant that I wrote all the content myself, there's close to 5000 words of content (a short story if you will). I hope you enjoy it, please ensure you read as much of it as you can so you can soak up as much of the story as possible.
 
+I didn't use an LLM to generate any of the content, only for menial tasks described above so I knew it was right after checking that the text was inserted verbatim (after instructing it to do so). 
+
+Hence, I'll focus and talk more about what the experience was like curating so much content over so many pages and ensuring that everything matched and made sense. Making sure all the content was consistent was largely easy as I was the one writing all the content and I had planned it out beforehand so I knew what the key terms were and all that would just consult this planning whenever I needed to double check that an acronym or process or character was consistent. When writing fiction you tend to get lost in the weeds quite a bit so its good to (1) have a document like this where you plan out the basic story, the terminology (especially important in speculative + science fiction where you are making up a lot of stuff!), the characters and so on and then (2) consult this document regularly, and update it regularly as you update concepts and characters and so on. Part 2 gets a bit difficult as this may mean you need to rewrite stuff, but again this is easy you can just go back to that document (I use Word.exe) and rewrite it -- just remember that you need to do this! However, somethings are a bit harder to maintain, specifically dates and so on. The course I made was happening in Semester 2 of 2027 so I used the ANU calendar to look up these dates and set everything based on that. But once you do this once, you don't have to do it again.
+This is how I ensured consistency across all the pages.
+
+Secondly, I didn't really focus on adding too many new components (I added one for an embedded pdf lecture slide deck; many students want to download and print lecture decks and this is an easier way of allowing that). The other component I added was for the garbled "CCS internal representation" text that can be seen especially throughout the later workshops. This component vibrates the text, which is an effect I'm mostly happy with. However, originally I had much grander ideas, as this course is really about perception and the mind so I wanted some element of gaze direction tracking and then to apply this in a way that would allow me to know when someone viewing the website was looking at a certain patch of this garbled text and then apply an effect only to these characters in the person's view. Kind of like foveated rendering, but css effects that only activate when a person is looking at it. I did look into this very seriously, but alas it is very difficult to implement especially with just vision alone from a web cam. Also I feel like this detracts from the portability as it would require quite a lot of webGPU to work and may slow down people's computers or phones (I have an especially slow laptop and this would have made the experience quite frustrating). As a result I settled on the effect that I'm mostly happy with that can be seen in development at commit [``](). I also updated the pagelayout component [``]() so that all the pages had the same layout -- it was really uncohesive that some pages like the assessments page looked different to other pages and as a result I changed it so that they all looked the same with a H1 the H2 then page content below, and that really added to the cohesiveness of the site.
