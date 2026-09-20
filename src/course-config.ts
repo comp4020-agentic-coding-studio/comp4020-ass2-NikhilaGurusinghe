@@ -46,7 +46,6 @@ export const slopCourseMetaSchema = z
 // The code's last three digits were assigned to this repo when it was
 // provisioned, and no other course in the cohort has them. Change the first
 // digit to your course's level (and `level` to match); keep the other three.
-// STARTER_CONTENT: replace this course record, then remove this comment.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP1836",
   title: "Advanced Topics in Human Computer Interaction: Human-Bionic Interaction",
