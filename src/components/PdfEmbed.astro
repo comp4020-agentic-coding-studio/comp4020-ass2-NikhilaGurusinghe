@@ -1,0 +1,42 @@
+---
+
+import { withBase } from "astro-theme-university/url";
+
+interface Props {
+  /** Root-absolute path to the PDF, e.g. `/slides/week-01.pdf`. */
+  src: string;
+  /** Names the frame for screen readers, so say which slides these are. */
+  title: string;
+}
+
+const { src, title } = Astro.props;
+const href = withBase(src);
+---
+
+<figure class="pdf">
+  <iframe class="pdf__frame" src={href} title={title} loading="lazy"></iframe>
+  <figcaption class="pdf__caption">
+    <a href={href}>Open {title} as a PDF</a>
+  </figcaption>
+</figure>
+
+<style>
+  .pdf {
+    margin-block: 2rem;
+    margin-inline: 0;
+  }
+
+  .pdf__frame {
+    display: block;
+    width: 100%;
+    height: min(80vh, 45rem);
+    border: 1px solid var(--at-color-border, rgb(0 0 0 / 0.15));
+    border-radius: 0.25rem;
+    background: rgb(0 0 0 / 0.03);
+  }
+
+  .pdf__caption {
+    margin-block-start: 0.5rem;
+    font-size: 0.9em;
+  }
+</style>
