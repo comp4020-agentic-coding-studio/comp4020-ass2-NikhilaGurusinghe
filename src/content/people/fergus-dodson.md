@@ -1,7 +1,7 @@
 ---
 title: Fergus Dodson
 description:
-  Head tutor
+  Head tutor of SLOP1836, and really excited to teach you this semester
 affiliation: Slop University School of Cybernetics
 email: fergus.dodson@slop.university
 contact: Find me at workshops or just email me

@@ -1,7 +1,7 @@
 ---
 title: Hughes McConough
 description:
-  Course Convenor
+  Course Convenor of SLOP1836, researcher, educator, and artist
 affiliation: Slop University School of Cybernetics
 role: convenor
 email: hughes.mcconough@slop.university
