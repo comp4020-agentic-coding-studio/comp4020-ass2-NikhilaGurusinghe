@@ -6,7 +6,7 @@ affiliation: Slop University School of Cybernetics
 role: convenor
 email: hughes.mcconough@slop.university
 contact: Email for course-level questions otherwise use the weekly workshop for feedback on work.
-photo: ./hughes-mcconough.avif
+photo: ./hughes-mcconough.png
 photoAlt: A picture of hughes mcconough.
 ---
 
