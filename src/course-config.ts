@@ -49,12 +49,16 @@ export const slopCourseMetaSchema = z
 // STARTER_CONTENT: replace this course record, then remove this comment.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP1836",
-  title: "Course Title Goes Here",
-  session: "Semester 1",
+  title: "Human-Bionic Interaction",
+  session: "Semester 2",
   year: 2027,
   level: 1,
-  startDate: "2027-02-22",
-  endDate: "2027-05-28",
+  // ANU 2027 academic calendar: Semester 2 begins 26 July and teaching ends
+  // 29 October (a 2-week break from 6 September sits in the middle). The
+  // record runs to the close of the examination period on 20 November, so
+  // assessment due dates after the last teaching day still fall inside it.
+  startDate: "2027-07-26",
+  endDate: "2027-11-20",
   description:
     "One concise paragraph explaining what this course is, who it is for, " +
     "and why somebody would choose to spend a semester taking it.",
