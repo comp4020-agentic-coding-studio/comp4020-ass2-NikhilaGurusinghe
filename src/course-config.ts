@@ -49,7 +49,7 @@ export const slopCourseMetaSchema = z
 // STARTER_CONTENT: replace this course record, then remove this comment.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP1836",
-  title: "Human-Bionic Interaction",
+  title: "Advanced Topics in Human Computer Interaction: Human-Bionic Interaction",
   session: "Semester 2",
   year: 2027,
   level: 1,
