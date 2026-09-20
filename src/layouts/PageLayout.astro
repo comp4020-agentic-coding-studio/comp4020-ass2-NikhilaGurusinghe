@@ -1,8 +1,19 @@
 ---
-import MdxPageLayout from "astro-theme-university/layouts/MdxPageLayout.astro";
+import ContentLayout, {
+  type ContentLayoutProps,
+} from "astro-theme-university/layouts/ContentLayout.astro";
 import { siteConfig } from "../site-config";
+
+interface Props {
+  frontmatter?: ContentLayoutProps;
+}
+
+const { frontmatter, ...direct } = Astro.props;
+const { heroTitle, ...props } = (frontmatter ?? direct) as ContentLayoutProps & {
+  heroTitle?: string;
+};
 ---
 
-<MdxPageLayout siteConfig={siteConfig} {...Astro.props}>
+<ContentLayout {...siteConfig} {...props}>
   <slot />
-</MdxPageLayout>
+</ContentLayout>
