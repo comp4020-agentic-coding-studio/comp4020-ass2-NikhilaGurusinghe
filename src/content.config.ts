@@ -62,9 +62,11 @@ export const collections = {
         week: weekSchema,
         date: z.coerce.date(),
         teachers: teacherRefs.optional(),
+        // Slide decks are PDFs served straight out of `public/slides/` and
+        // embedded in the lecture page, rather than a separate deck route.
         slides: z
           .string()
-          .regex(/^\/decks\/[a-z0-9-]+\/$/)
+          .regex(/^\/slides\/[a-z0-9-]+\.pdf$/)
           .optional(),
       })
       .loose(),
