@@ -29,6 +29,14 @@ export const siteConfig = defineSiteConfig({
   ],
 
   licence: "CC-BY-NC-SA-4.0",
+
+  meta: [
+    "This is a work of fiction. Names, characters, businesses, events, and " +
+      "incidents depicted on this website are purely fictitious and the " +
+      "products of the author’s imagination. Any similarity to actual " +
+      "persons, living or dead, or to actual events is purely coincidental.",
+  ],
+
   socialImage: "/src/assets/images/card.png",
   socialImageAlt: `A preview card for ${courseMeta.code}: ${courseMeta.title}`,
 });
