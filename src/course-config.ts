@@ -60,7 +60,21 @@ export const courseMeta = slopCourseMetaSchema.parse({
   startDate: "2027-07-26",
   endDate: "2027-11-20",
   description:
-    "One concise paragraph explaining what this course is, who it is for, " +
-    "and why somebody would choose to spend a semester taking it.",
-  tags: ["replace me"],
+    "CCS-based augmentations -- cybernetic organisms that alter your brain’s " +
+    "activity and chemistry -- are a powerful new tool allowing you to think " +
+    "faster and smarter. Moving beyond its obvious uses in solving difficult " +
+    "problems in academia, this course will teach you the skills you need to " +
+    "harness your new second inner monologue in the most optimal way " +
+    "possible. Although this is a skill transferrable to any domain, we will " +
+    "do so chiefly for the creation of art: visual, literary, and auditory. " +
+    "In the weekly lectures you’ll learn fundamental concepts and practical " +
+    "skills for harnessing your cybernetic organ including how best to " +
+    "communicate with them. Then in the weekly workshops, you’ll give a brief " +
+    "presentation on the art that you’ve created and receive constructive " +
+    "criticism from your peers and tutor. However, the goal is to evaluate " +
+    "your interactions with the CCS rather than the artwork itself -- so no " +
+    "prior art experience is required. Hence, by the end of the course you’ll " +
+    "have created multiple artworks, but you’ll have gained a significantly " +
+    "better understanding of using your organ toward any mean.",
+  tags: ["cybernetics", "art practice", "CCS communication"],
 }) satisfies CourseMetaInput;
