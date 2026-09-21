@@ -9,7 +9,7 @@ What I built is a satire, but also a fictitious course (I don't think it would b
 
 ## How I got here
 
-This assignment is clearly more about curating content and this is how the tutors have described this so this is what I focused on more. Initially I wanted to redesign the SLOP U template, but again this would not have made sense as this assignment is more content focused. This also meant that I wrote all the content myself, there's close to 5000 words of content (a short story if you will). I hope you enjoy it, please ensure you read as much of it as you can so you can soak up as much of the story as possible.
+This assignment is clearly more about curating content and this is how the tutors have described this so this is what I focused on more. Initially I wanted to redesign the SLOP U template, but again this would not have made sense as this assignment is more content focused. This also meant that I wrote all the content myself, there's close to 5000 words of content (a short story if you will). This and what is mentioned below is why I believe I have responded discerningly to the brief.
 
 I didn't use an LLM to generate any of the content, only for menial tasks described above so I knew it was right after checking that the text was inserted verbatim (after instructing it to do so). 
 
